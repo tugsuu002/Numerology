@@ -1,0 +1,28 @@
+.container {
+  background: #eee;
+  box-shadow: 1px 8px 12px 0 #000;
+  padding: 10px 30px;
+  margin: 100px auto;
+  width: 30%;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+}
+input {
+  width: 20%;
+  height: 25px;
+}
+form {
+  margin-bottom: 80px;
+}
+.label {
+  margin-bottom: 10px;
+}
+.submit {
+  color: #eee;
+  background: #444;
+  padding: 10px 22px;
+  border: none;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
