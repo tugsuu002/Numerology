@@ -12,17 +12,19 @@ function sendData(e) {
       "Content-type": "application/json",
     },
     body: JSON.stringify({
-      name: formData.get("year"),
-      name: formData.get("month"),
-      name: formData.get("day"),
+      year: formData.get("year"),
+      month: formData.get("month"),
+      day: formData.get("day"),
     }),
     method: "POST",
   };
 
   fetch("http://localhost:9000/formData", Params)
-    .then((response) => response.json())
+    .then((response) => {
+      response.json();
+    })
     .then((data) => {
-      console.log(data);
+      console.log("ddd" + data);
     })
     .catch((err) => console.log(err));
 }
