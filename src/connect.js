@@ -10,14 +10,12 @@ let db = new sqlite3.Database("./db/1.db", sqlite3.OPEN_READWRITE, (err) => {
 
 db.serialize(() => {
   db.each(
-    `SELECT id as iid,
-            detail_value as name
-           FROM Desc`,
+    `SELECT B.grp_code as t1, B.grp_name as t2, D.detail_advice as d1, D.detail_settings as d2 FROM Buleg B JOIN Desc D ON B.grp_code = D.grp_code`,
     (err, row) => {
       if (err) {
         console.error(err.message);
       }
-      console.log(row.iid + "\t" + row.name);
+      console.log(row.t1 + "\t" + row.t2 + "\t" + row.d1 + "\t" + row.d3);
     }
   );
 });
