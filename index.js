@@ -52,7 +52,6 @@ const listNum = [];
 //                     DataTable dt = new DataTable();
 //                     dt.Columns.Add("Error");
 //                     dt.Rows.Add(ex.ToString());
-//                     grid2.DataSource = dt;
 //                 }
 //                 conn.Close();
 //             }
@@ -91,12 +90,8 @@ function ButtonClick(YearD, MonthD, DayD) {
     } else {
       tt0 = tt0 - parseInt(listNum[6]) * 2;
     }
-    console.log("ss00" + ss0[0]);
-    console.log("ss01" + ss0[1]);
-    console.log("ss02" + ss0[2]);
     CurrentPos = ss0[1];
     listNum[CurrentPos] = parseInt(tt0);
-    console.log(listNum);
     // if (tt0.ToString().Length > 1) {
     //   gridSource.Rows[1].Cells[CurrentPos].Style.BackColor = Color.LightSalmon;
     // }
@@ -114,63 +109,4 @@ function ButtonClick(YearD, MonthD, DayD) {
   CurrentPos = CurrentPos + 1;
   var ss1 = _clc(tt0, CurrentPos);
   l = ss1[1] + 1;
-  console.log(listNum);
-  console.log(ss1[1]);
-  console.log(l);
-}
-
-//niilber
-function _calc(n) {
-  var sum = 0;
-  for (i = 0; i < n.length; i++) {
-    sum += parseInt(n[i]);
-  }
-  return sum;
-}
-
-function _clc(too, col) {
-  var current_too = too;
-  var current_col = col;
-  var sum_too = 0;
-  var ret_arr = [];
-  for (i = 0; i < too.length; i++) {
-    sum_too = sum_too + parseInt(too.substr(i, 1));
-  }
-  var ret_too = 0;
-  var gridSource = [];
-  var list = [];
-  list.push(current_too);
-  list.push(current_col);
-  list.push(sum_too);
-  //var ret_arr = parseInt(list);
-  var ret_arr = [];
-  var _cycle = 1;
-  console.log(current_too);
-  while (_cycle == 1) {
-    // нэг оронтой тоо гартал үргэлжлүүлэх юм
-    if (current_too.length == 1) {
-      console.log("1 tei tentsuu:");
-      _cycle = 0;
-    }
-    // "ret" тооны цифрүүдийг нэг бүрчлэн хойш нь цувуулан бичих
-    if (current_too.length > 1) {
-      for (i = 0; i < current_too.length; i++) {
-        listNum.push(parseInt(current_too.substr(i, 1)));
-        current_col = current_col + 1;
-      }
-      //цифрүүдийн нийлбэрийг олоод "ret" хувьсагч-д хадгалах
-      ret_too = _calc(current_too);
-      if (ret_too == 10) ret_too = 1;
-      // бодсон нийлбэр дүнгээ 2 дахь параметрт өгөгдсөн "col" багана дээр бичээд
-      // нийлбэр бичсэн нүдээ тусгай өнгөөр будах
-      gridSource.push(ret_too);
-      current_col = current_col + 1;
-    }
-    console.log("hello cisco:" + listNum);
-    current_too = ret_too.toString();
-  }
-  ret_arr.push(current_too);
-  ret_arr.push(current_col);
-  ret_arr.push(sum_too);
-  return ret_arr;
 }
