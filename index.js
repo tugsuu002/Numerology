@@ -11,9 +11,12 @@ app.use(bodyParser.json());
 //app.use(urlencoded);
 app.use(express.static(__dirname + "/public"));
 app.get("/", (request, response) => {
+  // const { year, month, day } = request.body;
+  // const result = calculate(year, month, day);
+  // const arr = func(result);
+  // response.send({ result: arr });
   response.sendFile(path.join(__dirname + "/index.html"));
 });
-
 app.post("/formData", (request, response) => {
   //ButtonClick function year, month, day 3 iig damjuulsan //
   ButtonClick(request.body.year, request.body.month, request.body.day);
@@ -21,6 +24,7 @@ app.post("/formData", (request, response) => {
 });
 app.listen(port, () => console.log("server running"));
 
+const listNum = [];
 // function PerformSelect(par)
 //         {
 //             let sql = "SELECT Buleg.grp_code,Buleg.grp_name,Buleg.grp_define,Buleg.grp_comment, Desc.detail_value,Desc.detail_advice,Desc.detail_settings FROM Buleg INNER JOIN Desc ON Buleg.grp_code = Desc.grp_code where detail_value like '";
@@ -85,31 +89,37 @@ function ButtonClick(YearD, MonthD, DayD) {
     if (D < 10) {
       tt0 = tt0 - D * 2;
     } else {
-      tt0 =
-        tt0 - Convert.ToInt16(gridSource.Rows[1].Cells[6].Value.ToString()) * 2;
+      tt0 = tt0 - parseInt(listNum[6]) * 2;
     }
+    console.log("ss00" + ss0[0]);
+    console.log("ss01" + ss0[1]);
+    console.log("ss02" + ss0[2]);
     CurrentPos = ss0[1];
-    gridSource.Rows[1].Cells[CurrentPos].Value = tt0;
-    if (tt0.ToString().Length > 1) {
-      gridSource.Rows[1].Cells[CurrentPos].Style.BackColor = Color.LightSalmon;
-    }
-  } // 2000.01.01 өдрөөс хойш өөр аргаар тооцоолно.
-  else {
+    listNum[CurrentPos] = parseInt(tt0);
+    console.log(listNum);
+    // if (tt0.ToString().Length > 1) {
+    //   gridSource.Rows[1].Cells[CurrentPos].Style.BackColor = Color.LightSalmon;
+    // }
+  } else {
+    // 2000.01.01 өдрөөс хойш өөр аргаар тооцоолно.
     CurrentPos = ss0[1];
-    gridSource.Rows[1].Cells[CurrentPos].Value = 1;
+    listNum[CurrentPos] = 1;
     CurrentPos = CurrentPos + 1;
-    gridSource.Rows[1].Cells[CurrentPos].Value = 9;
+    listNum[CurrentPos] = 9;
     tt0 = ss0[2] + 19;
     CurrentPos = CurrentPos + 1;
-    gridSource.Rows[1].Cells[CurrentPos].Value = tt0;
-    gridSource.Rows[1].Cells[CurrentPos].Style.BackColor = Color.LightSalmon;
+    listNum[CurrentPos] = tt0;
   }
-  // // гарсан тоог дахин цифрүүдийн нийлбэр нь 1 оронтой болтол нь цифрүүдээр задлан бичих
-  // CurrentPos = CurrentPos + 1;
-  // var ss1 = _clc(tt0, CurrentPos);
-  // l = ss1[1] + 1;
+  // гарсан тоог дахин цифрүүдийн нийлбэр нь 1 оронтой болтол нь цифрүүдээр задлан бичих
+  CurrentPos = CurrentPos + 1;
+  var ss1 = _clc(tt0, CurrentPos);
+  l = ss1[1] + 1;
+  console.log(listNum);
+  console.log(ss1[1]);
+  console.log(l);
 }
-//
+
+//niilber
 function _calc(n) {
   var sum = 0;
   for (i = 0; i < n.length; i++) {
@@ -127,7 +137,6 @@ function _clc(too, col) {
     sum_too = sum_too + parseInt(too.substr(i, 1));
   }
   var ret_too = 0;
-  var listNum = [];
   var gridSource = [];
   var list = [];
   list.push(current_too);
@@ -157,6 +166,7 @@ function _clc(too, col) {
       gridSource.push(ret_too);
       current_col = current_col + 1;
     }
+    console.log("hello cisco:" + listNum);
     current_too = ret_too.toString();
   }
   ret_arr.push(current_too);
