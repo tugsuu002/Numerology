@@ -5,7 +5,6 @@ const port = 9000;
 const path = require("path");
 const bodyParser = require("body-parser");
 const sqlite3 = require("sqlite3").verbose();
-const gridSource = [];
 //let urlencoded = bodyParser.urlencoded({ extended: false });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -117,7 +116,6 @@ function _clc(too, col) {
     sum_too = sum_too + parseInt(too.substr(i, 1));
   }
   var ret_too = 0;
-  var gridSource = [];
   var list = [];
   list.push(current_too);
   list.push(current_col);
@@ -203,13 +201,6 @@ function ButtonClick(YearD, MonthD, DayD) {
   CurrentPos = CurrentPos + 1;
   var ss1 = _clc(tt0, CurrentPos);
   l = ss1[1] + 1;
-  var Numl = [];
-  //2 hemjeest array [] []
-  var gridSource8 = new Array(10);
-  //duurgelt
-  for (var i = 0; i < gridSource8.length; i++) {
-    gridSource8[i] = new Array(2);
-  }
   //===============================
   for (k = 1; k < 10; k++) {
     var tt = "";
