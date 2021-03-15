@@ -27,3 +27,6 @@ form {
   bottom: 10px;
   right: 10px;
 }
+
+.submit:hover{background-color:orange;}
+.submit:focus{background-color:red;}

@@ -1,0 +1,36 @@
+{
+  "name": "Numerology-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "",
+    "start": "nodemon index.js",
+    "server": "nodemon index --exec babel-node",
+    "build_server": "babel channel -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tugsuu002/Numerology.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tugsuu002/Numerology/issues"
+  },
+  "homepage": "https://github.com/tugsuu002/Numerology#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "nodemon": "^2.0.7"
+  }
+}
