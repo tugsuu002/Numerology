@@ -22,10 +22,6 @@ app.post("/formData", (request, response) => {
   ButtonClick(request.body.year, request.body.month, request.body.day);
   //response.render("formData", { qs: request.query });
 });
-app.listen(port, () => console.log("server running"));
-
-const listNum = [];
-//const listNum = Create2DArray(100)
 
 //=========PerformSelect======//
 // function PerformSelect(par)
@@ -84,8 +80,6 @@ function Conv_par(grp, detail) {
   //-----------Connected-------------<=
   var ret_val = "";
   var par = grp.toString() + "." + detail.toString();
-  // console.log("par::" + par);
-  // console.log("detail::" + detail);
   var r_too = 0;
   db.serialize(() => {
     db.each(
@@ -94,7 +88,6 @@ function Conv_par(grp, detail) {
         if (err) {
           console.error(err.message);
         }
-        console.log(row);
         r_too = row.count;
         if (r_too == 1) {
           console.log("ds" + ret_val);
@@ -264,7 +257,6 @@ function ButtonClick(YearD, MonthD, DayD) {
   for (i = 0; i < 8; i++) {
     txtlist.push("");
   }
-  txt_arr = txtlist;
   for (i = 0; i < 9; i++) {
     var n = gridSource8[8][i + 1].length;
     txt_arr[0] = gridSource8[8][i + 1].toString();
