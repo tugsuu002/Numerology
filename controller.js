@@ -31,7 +31,6 @@ export const ButtonClick = (YearD, MonthD, DayD) => {
   }
   // огноог эхнээс нь цифрүүдийн нийлбэр нь 1 оронтой болтол нь цифрүүдээр задлан бичих
   var ss0 = _clc(tmp, CurrentPos);
-  console.log("ss0", ss0);
   var tt0;
   if (Y < parseInt("2000/01/01")) {
     //2000.01.01 өдрөөс өмнө төрсөн хүмүүсийн тухайд:
@@ -62,7 +61,6 @@ export const ButtonClick = (YearD, MonthD, DayD) => {
   // гарсан тоог дахин цифрүүдийн нийлбэр нь 1 оронтой болтол нь цифрүүдээр задлан бичих
   CurrentPos = CurrentPos + 1;
   var ss1 = _clc(tt0, CurrentPos);
-  console.log("ss1", ss1);
   l = ss1[1] + 1;
   //===============================
   for (var k = 1; k < 10; k++) {
@@ -270,50 +268,6 @@ const GetQueryResult = (param) => {
   //var tNum = PerformSelect(param);
 };
 
-//=========PerformSelect======//
-function PerformSelect(par) {
-  var sql =
-    "SELECT Buleg.grp_code,Buleg.grp_name,Buleg.grp_define,Buleg.grp_comment, Desc.detail_value,Desc.detail_advice,Desc.detail_settings FROM Buleg INNER JOIN Desc ON Buleg.grp_code = Desc.grp_code where detail_value like '";
-  sql = sql + par + "%';";
-  var r_too = 0;
-  db.serialize(() => {
-    db.all(sql, [], (err, rows) => {
-      rows.forEach((element) => {
-        console.log(element);
-      });
-    });
-  });
-
-  // try
-  // {
-
-  // 	DataTable dt = sh.Select(sql);
-  // 	grid2.DataSource = dt;
-  // 	r_too = dt.Rows.Count;
-  // }
-  // catch (RuntimeException ex)
-  // {
-  // 	ex.toString();
-  // 	DataTable dt = new DataTable();
-  // 	dt.Columns.Add("Error");
-  // 	dt.Rows.Add(ex.toString());
-  // 	grid2.DataSource = dt;
-  // }
-  // conn.Close();
-  return;
-}
-//----------------------------------
-
-//=======_calc======//
-//niilber
-function _calc(n) {
-  var sum = 0;
-  for (i = 0; i < n.length; i++) {
-    sum += parseInt(n[i]);
-  }
-  return sum;
-}
-
 // open the database
 let db = new sqlite3.Database("./db/1.db", sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
@@ -382,18 +336,8 @@ async function Conv_par(grp, detail, cb) {
                 for (i = 0; i < view.length; i++) {
                   if (parseInt(conv1(par)) < parseInt(conv1(r_min))) {
                     ret_val = r_min;
-                    // return cb(ret_val);
-                    // return ret_val;
-                    // ret_val = view[i].detail_value
-                    //   .toString()
-                    //   .substr(1, view[i].detail_value.toString().length - 1);
                   } else if (parseInt(conv1(r_max)) < parseInt(conv1(par))) {
                     ret_val = r_max;
-                    // return cb(ret_val);
-                    // return ret_val;
-                    // ret_val = view[i].detail_value
-                    //   .toString()
-                    //   .substr(1, view[i].detail_value.toString().length - 1);
                   }
                   if (
                     parseInt(conv1(r_min)) < parseInt(conv1(par)) &&
@@ -403,7 +347,6 @@ async function Conv_par(grp, detail, cb) {
                     ret_val = view[i].detail_value;
                     console.log("ih sonin ued ", ret_val);
                     // return cb(ret_val);
-                    // return ret_val;
                   }
                 }
               }
@@ -417,30 +360,13 @@ async function Conv_par(grp, detail, cb) {
                 var count2 = 0;
                 db.all(sql, [], (err, rows) => {
                   rows.forEach((el) => {
-                    console.log("eell", el);
-                    dt[count2] = el;
-                    count2++;
-                  });
-                  console.log("dtddd", dt);
-                  r_too = count2;
-                  return cb(dt);
-                });
-              } catch (ex) {
-                console.log("errss");
-                // ex.ToString();
-                // var dt = new DataTable();
-                // dt.Columns.Add("Error");
-                // dt.Rows.Add(ex.ToString());
-              }
-            });
-          } catch (ex) {
-            console.log("errs");
-            // ex.ToString();
-            // var dt = new DataTable();
-            // dt.Columns.Add("Error");
-            // dt.Rows.Add(ex.ToString());
-          }
-        }
+            // console.log("eell", el);
+            dt[count2] = el;
+            count2++;
+          });
+          r_too = count2;
+          return cb(dt[count2 - 1], r_too);
+        });
       });
     } catch (ex) {
       console.log("err");
@@ -461,58 +387,3 @@ function conv1(p) {
   return r;
 }
 //======================//
-
-//=======_clc============/
-function _clc(too, col) {
-  var current_too = too;
-  var current_col = col;
-  var sum_too = 0;
-  current_too = current_too.toString();
-  for (i = 0; i < too.length; i++) {
-    sum_too = sum_too + parseInt(too.substr(i, 1));
-  }
-  var ret_too = 0;
-  var list = [];
-  list.push(current_too);
-  list.push(current_col);
-  list.push(sum_too);
-  //var ret_arr = parseInt(list);
-  var ret_arr = [];
-  var _cycle = 1;
-  while (_cycle == 1) {
-    // нэг оронтой тоо гартал үргэлжлүүлэх юм
-    if (current_too.length == 1) {
-      _cycle = 0;
-    }
-    // "ret" тооны цифрүүдийг нэг бүрчлэн хойш нь цувуулан бичих
-    if (current_too.length > 1) {
-      for (i = 0; i < current_too.length; i++) {
-        listNum[0][current_col] = 0;
-        listNum[1][current_col] = parseInt(current_too.substr(i, 1));
-        current_col = current_col + 1;
-      }
-      //цифрүүдийн нийлбэрийг олоод "ret" хувьсагч-д хадгалах
-      ret_too = _calc(current_too);
-      if (ret_too == 10) ret_too = 1;
-      // бодсон нийлбэр дүнгээ 2 дахь параметрт өгөгдсөн "col" багана дээр бичээд
-      // нийлбэр бичсэн нүдээ тусгай өнгөөр будах
-      listNum[1][current_col] = ret_too;
-      if (
-        ret_too.toString().length > 1 ||
-        current_too == 11 ||
-        current_too == 22 ||
-        current_too == 33
-      ) {
-        listNum[0][current_col] = 1;
-      }
-      current_col = current_col + 1;
-    }
-    current_too = ret_too.toString();
-  }
-  current_too = parseInt(current_too);
-  ret_arr.push(current_too);
-  ret_arr.push(current_col);
-  ret_arr.push(sum_too);
-  return ret_arr;
-}
-//=====================END====================================//
