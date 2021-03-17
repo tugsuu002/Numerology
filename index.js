@@ -5,10 +5,7 @@ const port = 9000;
 const path = require("path");
 import bodyParser from "body-parser";
 import { ButtonClick } from "./controller";
-
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-// app.use(urlencoded);
 app.use(express.static(__dirname + "/public"));
 app.get("/", (request, response) => {
   // const { year, month, day } = request.body;

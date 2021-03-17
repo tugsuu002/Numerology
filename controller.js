@@ -278,15 +278,14 @@ let db = new sqlite3.Database("./db/1.db", sqlite3.OPEN_READWRITE, (err) => {
 
 //===========Conv_par=======//
 async function Conv_par(grp, detail, cb) {
-  //-----------Connected-------------<=
   var ret_val = "123";
   var par = grp.toString() + "." + detail.toString();
   //   var tol = 1.7;
   var sql =
     "SELECT detail_value FROM View1 WHERE detail_value like '" + par + "%';";
   var r_too = 0;
-  var ret_dt = new Array();
   db.serialize(() => {
+    var ret_dt = new Array();
     var count = 0;
     try {
       db.all(sql, [], (err, rows) => {
@@ -302,8 +301,6 @@ async function Conv_par(grp, detail, cb) {
           ret_val = ret_dt[0].toString();
           console.log("r_too == 1", ret_val);
         } else {
-          //2 hemjeest array [] []
-          var ret_dt = new Array();
           sql =
             "SELECT detail_value," +
             " CASE substr(detail_value, length(detail_value) - 1, 1)" +
@@ -379,11 +376,3 @@ async function Conv_par(grp, detail, cb) {
   return;
   db.close();
 }
-
-//=======conv1============/
-function conv1(p) {
-  var r;
-  r = p.toString().substr(p.indexOf(".") + 1, 1);
-  return r;
-}
-//======================//
